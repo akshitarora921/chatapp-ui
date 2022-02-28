@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import ContactCard from "./components/ContactCard";
 import Message from "./components/Message";
@@ -71,7 +71,18 @@ const messagesTemp = [
   },
 ];
 function App() {
+  const messagesEndRef = useRef()
   const [messages, setMessages] = useState(messagesTemp);
+
+  useEffect(() => {
+    const fun = () => {
+      messagesEndRef.current.scrollIntoView();
+    };
+    return () => {
+      fun();
+    };
+  }, [messages]);
+
   function handleSubmit(e) {
     e.preventDefault();
     const message = e.target.message.value
@@ -127,6 +138,7 @@ function App() {
             {messages.map((message) => (
               <Message {...message} />
             ))}
+            <div ref={messagesEndRef} />
           </div>
           <form onSubmit={handleSubmit} className='flex-2 py-4'>
             <div className='write bg-white shadow flex rounded-lg'>
