@@ -1,6 +1,5 @@
 import { format } from "date-fns";
 import React from "react";
-import { formatDate } from "../utils/formatDate";
 
 function Message({message, sender, timeStamp}) {
   if (sender==="bot")

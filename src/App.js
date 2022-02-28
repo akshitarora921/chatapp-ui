@@ -136,7 +136,7 @@ function App() {
   // console.log(messages);
   return (
     <div className='flex flex-col justify-center items-center h-screen bg-gradient-to-r from-blue-600 via-pink-500 to-violet-600'>
-      <div className='h-[95vh] w-[95vw] bg-white/50 backdrop-blur-md shadow-lg px-16 py-8 flex rounded-2xl'>
+      <div className='h-[95vh] w-[95vw] bg-white/50 backdrop-blur-md shadow-lg px-8 lg:px-16 py-8 flex rounded-2xl'>
         <div className='sidebar hidden lg:flex w-1/3 flex-2 flex-col pr-6'>
           <div className='search flex-2 pb-6 px-2'>
             <input
