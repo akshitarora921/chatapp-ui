@@ -74,6 +74,11 @@ function App() {
   const messagesEndRef = useRef()
   const [messages, setMessages] = useState(messagesTemp);
 
+  useEffect(()=>{
+    if (localStorage.getItem('messages')){
+      setMessages(JSON.parse(localStorage.getItem('messages')))
+    }
+  },[])
   useEffect(() => {
     const fun = () => {
       messagesEndRef.current.scrollIntoView();
@@ -86,6 +91,21 @@ function App() {
   function handleSubmit(e) {
     e.preventDefault();
     const message = e.target.message.value
+    let tempMessages = messages
+    if (!message) return
+    tempMessages.push({
+      id: Date.now(),
+      message: message,
+      sender: "Akshit",
+      receiver: "bot",
+      timeStamp: Date().toString(),
+    }, {
+      id: Date.now(),
+      message: message,
+      sender: "bot",
+      receiver: "akshit",
+      timeStamp: Date().toString(),
+    },)
     setMessages((prevState) => [
       ...prevState,
       {
@@ -107,7 +127,10 @@ function App() {
           timeStamp: Date().toString(),
         },
       ]);
+      console.log('helko')
+      localStorage.setItem('messages',JSON.stringify(tempMessages))
     }, 1000);
+    
     e.target.reset();
   }
   // console.log(messages);
