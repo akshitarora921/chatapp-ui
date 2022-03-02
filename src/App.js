@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import ContactCard from "./components/ContactCard";
 import Message from "./components/Message";
+import createMessage from "./utils/createMessage";
 const data = [
   {
     userName: "Akshit Arora",
@@ -71,17 +72,18 @@ const messagesTemp = [
   },
 ];
 function App() {
-  const messagesEndRef = useRef()
+  const messagesEndRef = useRef(null);
+  const [isBotTyping, setIsBotTyping] = useState(false);
   const [messages, setMessages] = useState(messagesTemp);
 
-  useEffect(()=>{
-    if (localStorage.getItem('messages')){
-      setMessages(JSON.parse(localStorage.getItem('messages')))
+  useEffect(() => {
+    if (localStorage.getItem("messages")) {
+      setMessages(JSON.parse(localStorage.getItem("messages")));
     }
-  },[])
+  }, []);
   useEffect(() => {
     const fun = () => {
-      messagesEndRef.current.scrollIntoView();
+      messagesEndRef && messagesEndRef.current.scrollIntoView();
     };
     return () => {
       fun();
@@ -90,47 +92,20 @@ function App() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const message = e.target.message.value
-    let tempMessages = messages
-    if (!message) return
-    tempMessages.push({
-      id: Date.now(),
-      message: message,
-      sender: "Akshit",
-      receiver: "bot",
-      timeStamp: Date().toString(),
-    }, {
-      id: Date.now(),
-      message: message,
-      sender: "bot",
-      receiver: "akshit",
-      timeStamp: Date().toString(),
-    },)
-    setMessages((prevState) => [
-      ...prevState,
-      {
-        id: Date.now(),
-        message: message,
-        sender: "Akshit",
-        receiver: "bot",
-        timeStamp: Date().toString(),
-      },
-    ]);
+    const message = e.target.message.value;
+    const userMessage = createMessage(message, "user");
+    const botMessage = createMessage(message, "bot");
+    let tempMessages = messages;
+    if (!message) return;
+    tempMessages.push(userMessage, botMessage);
+    setMessages((prevState) => [...prevState, userMessage]);
+    setIsBotTyping(true);
     setTimeout(() => {
-      setMessages((prevState) => [
-        ...prevState,
-        {
-          id: Date.now(),
-          message: message,
-          sender: "bot",
-          receiver: "akshit",
-          timeStamp: Date().toString(),
-        },
-      ]);
-      console.log('helko')
-      localStorage.setItem('messages',JSON.stringify(tempMessages))
+      setIsBotTyping(false);
+      setMessages((prevState) => [...prevState, botMessage]);
+      localStorage.setItem("messages", JSON.stringify(tempMessages));
     }, 1000);
-    
+
     e.target.reset();
   }
   // console.log(messages);
@@ -157,10 +132,22 @@ function App() {
               Chatting with <b>Mercedes Yemelyan</b>
             </h2>
           </div>
-          <div className='messages flex-1 overflow-auto'>
+          <div className='messages flex-1 overflow-auto relative'>
             {messages.map((message) => (
               <Message {...message} />
             ))}
+                 
+            {isBotTyping && (
+              <div className='message mb-4 flex absolute'>
+                <div className='flex-1 px-2'>
+                  <div className='inline-block bg-gray-300 rounded-full font-extrabold tracking-wider p-2 px-6 text-gray-700'>
+                    <span className='tracking-wider animate-ping'>.</span>
+                    <span className='tracking-wider animate-ping animation-delay-250'>.</span>
+                    <span className='tracking-wider animate-ping animation-delay-500'>.</span>
+                  </div>
+                </div>
+              </div>
+            )}
             <div ref={messagesEndRef} />
           </div>
           <form onSubmit={handleSubmit} className='flex-2 py-4'>
