@@ -111,7 +111,7 @@ function App() {
   // console.log(messages);
   return (
     <div className='flex flex-col justify-center items-center h-screen bg-gradient-to-r from-blue-600 via-pink-500 to-violet-600'>
-      <div className='h-[95vh] w-[95vw] bg-white/50 backdrop-blur-md shadow-lg px-8 lg:px-16 py-4 lg:py-8 flex rounded-2xl'>
+      <div className='h-[95vh] w-[95vw] bg-white/50 dark:bg-black/80 backdrop-blur-md shadow-lg px-8 lg:px-16 py-4 lg:py-8 flex rounded-2xl'>
         <div className='sidebar hidden lg:flex w-1/3 flex-2 flex-col pr-6'>
           <div className='search flex-2 py-4 px-2'>
             <input
@@ -136,7 +136,7 @@ function App() {
               />
               <span className='absolute w-4 h-4 animate-ping duration-1000 bg-green-400 rounded-full right-0 bottom-0'></span>
             </div>
-            <h2 className='text-xl'>
+            <h2 className='text-xl dark:text-gray-200'>
              <b>Mercedes Yemelyan</b>
             </h2>
           </div>
@@ -163,7 +163,7 @@ function App() {
             <div ref={messagesEndRef} />
           </div>
           <form onSubmit={handleSubmit} className='flex-2 py-4'>
-            <div className='write bg-white shadow flex rounded-lg'>
+            <div className='write bg-white dark:bg-gray-900 shadow flex rounded-lg'>
               <div className='flex-3 flex content-center items-center text-center p-4 pr-0'>
                 <span className='block text-center text-gray-400 hover:text-gray-800'>
                   <svg
@@ -179,10 +179,10 @@ function App() {
                   </svg>
                 </span>
               </div>
-              <div className='flex-1'>
+              <div className='flex-1 '>
                 <input
                   name='message'
-                  className='w-full block outline-none py-4 px-4 bg-transparent'
+                  className='w-full block outline-none dark:text-gray-200 py-4 px-4 bg-transparent'
                   type='text'
                   placeholder='Type a message...'
                   autofocus

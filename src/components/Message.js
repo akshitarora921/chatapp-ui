@@ -6,7 +6,7 @@ function Message({ message, sender, timeStamp }) {
     return (
       <div className='message flex'>
         <div className='flex-col px-2 mb-4'>
-          <div className='inline-block bg-gray-100 rounded-full p-2 px-6 text-gray-700'>
+          <div className='inline-block bg-gray-100 dark:bg-gray-900 rounded-full p-2 px-6 text-gray-700 dark:text-gray-200'>
             <span>{message}</span>
           </div>
           <div className='pl-4'>
