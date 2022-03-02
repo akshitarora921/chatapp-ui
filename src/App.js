@@ -96,7 +96,7 @@ function App() {
             {isBotTyping && (
               <div className='message mb-4 flex absolute'>
                 <div className='flex-1 px-2'>
-                  <div className='inline-block bg-gray-300 rounded-full font-extrabold tracking-wider p-2 px-6 text-gray-700'>
+                  <div className='inline-block bg-gray-300 dark:bg-gray-900 rounded-full font-extrabold tracking-wider p-2 px-6 text-gray-700 dark:text-gray-300'>
                     <span className='tracking-wider animate-ping'>.</span>
                     <span className='tracking-wider animate-ping animation-delay-250'>
                       .
@@ -127,7 +127,7 @@ function App() {
                   </svg>
                 </span>
               </div>
-              <div className='flex-1 '>
+              <div className='flex-1'>
                 <input
                   name='message'
                   className='w-full block outline-none dark:text-gray-200 py-4 px-4 bg-transparent'
