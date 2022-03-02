@@ -111,9 +111,9 @@ function App() {
   // console.log(messages);
   return (
     <div className='flex flex-col justify-center items-center h-screen bg-gradient-to-r from-blue-600 via-pink-500 to-violet-600'>
-      <div className='h-[95vh] w-[95vw] bg-white/50 backdrop-blur-md shadow-lg px-8 lg:px-16 py-8 flex rounded-2xl'>
+      <div className='h-[95vh] w-[95vw] bg-white/50 backdrop-blur-md shadow-lg px-8 lg:px-16 py-4 lg:py-8 flex rounded-2xl'>
         <div className='sidebar hidden lg:flex w-1/3 flex-2 flex-col pr-6'>
-          <div className='search flex-2 pb-6 px-2'>
+          <div className='search flex-2 py-4 px-2'>
             <input
               type='text'
               className='outline-none py-2 block w-full bg-transparent border-b-2 border-gray-200 placeholder-white text-white'
@@ -127,23 +127,35 @@ function App() {
           </div>
         </div>
         <div className='chat-area flex-1 flex flex-col'>
-          <div className='flex-3'>
-            <h2 className='text-xl py-1 mb-8 border-b-2 border-gray-200'>
-              Chatting with <b>Mercedes Yemelyan</b>
+          <div className='flex items-center gap-4 py-1 mb-3 border-b-2 border-gray-200'>
+            <div className='w-12 h-12 relative'>
+              <img
+                className='w-12 h-12 rounded-full mx-auto'
+                src='profile-pic.jpeg'
+                alt='chat-user'
+              />
+              <span className='absolute w-4 h-4 animate-ping duration-1000 bg-green-400 rounded-full right-0 bottom-0'></span>
+            </div>
+            <h2 className='text-xl'>
+             <b>Mercedes Yemelyan</b>
             </h2>
           </div>
           <div className='messages flex-1 overflow-auto relative'>
             {messages.map((message) => (
               <Message {...message} />
             ))}
-                 
+
             {isBotTyping && (
               <div className='message mb-4 flex absolute'>
                 <div className='flex-1 px-2'>
                   <div className='inline-block bg-gray-300 rounded-full font-extrabold tracking-wider p-2 px-6 text-gray-700'>
                     <span className='tracking-wider animate-ping'>.</span>
-                    <span className='tracking-wider animate-ping animation-delay-250'>.</span>
-                    <span className='tracking-wider animate-ping animation-delay-500'>.</span>
+                    <span className='tracking-wider animate-ping animation-delay-250'>
+                      .
+                    </span>
+                    <span className='tracking-wider animate-ping animation-delay-500'>
+                      .
+                    </span>
                   </div>
                 </div>
               </div>
