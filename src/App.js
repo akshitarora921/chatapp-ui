@@ -51,14 +51,14 @@ function App() {
   }
   return (
     <div className='flex flex-col justify-center items-center h-screen bg-gradient-to-r from-blue-600 via-pink-500 to-violet-600'>
-      <button className='absolute top-5 right-5' onClick={toggleTheme}>
+      <button className='hidden md:block absolute top-5 right-5' onClick={toggleTheme}>
         {theme === "dark" ? (
           <img src='https://img.icons8.com/color/48/000000/sun--v1.png' alt='light mode'/>
         ) : (
           <img src="https://img.icons8.com/external-dreamcreateicons-fill-lineal-dreamcreateicons/48/000000/external-moon-weather-dreamcreateicons-fill-lineal-dreamcreateicons-2.png" alt='dark-mode' />
         )}
       </button>
-      <div className='h-[85vh] w-[85vw] bg-white/50 dark:bg-black/80 backdrop-blur-md shadow-lg px-8 lg:px-16 py-4 lg:py-8 flex rounded'>
+      <div className='h-[98vh] w-[98vw] md:h-[85vh] md:w-[85vw] bg-white/50 dark:bg-black/80 backdrop-blur-md shadow-lg px-8 lg:px-16 py-4 lg:py-8 flex rounded'>
         <div className='sidebar hidden lg:flex w-1/3 flex-2 flex-col pr-6'>
           <div className='search flex-2 py-4 px-2'>
             <input
