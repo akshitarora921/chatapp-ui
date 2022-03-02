@@ -1,9 +1,9 @@
 import { format } from 'date-fns'
 import React from 'react'
 
-function ContactCard({imageUrl, userName, message, unreadMessage, isOnline, isChatActive }) {
+function ContactCard({imageUrl, userName, message, isOnline, isChatActive }) {
   return (
-    <div className={`entry cursor-pointer dark:bg-gray-900 dark:border-gray-900 transform hover:border-blue-500 border-white border-l-4 duration-300 transition-transform bg-white mb-4 rounded p-4 flex shadow-md ${isChatActive && 'border-l-4 border-red-500'}`}>
+    <div className={`entry cursor-pointer dark:bg-gray-900 dark:border-gray-900 transform hover:border-blue-500 border-white border-l-4 duration-300 transition-transform bg-white mb-4 rounded p-4 flex shadow-md ${isChatActive && 'border-l-4 border-blue-500'}`}>
     <div className='flex-2'>
       <div className='w-12 h-12 relative'>
          <img
@@ -19,18 +19,14 @@ function ContactCard({imageUrl, userName, message, unreadMessage, isOnline, isCh
         <span className='text-gray-800 dark:text-gray-200'>{userName}</span>
       </div>
       <div>
-        <small className='text-gray-600 dark:text-gray-200'>{message[0]?.message}</small>
+        <small className='text-gray-600 dark:text-gray-200'>{message?.message}</small>
       </div>
     </div>
     <div className='flex-2 text-right'>
       <div>
-        <small className='text-gray-500 dark:text-gray-200'>{format(new Date(message[0]?.timeStamp),'dd MMMM')}</small>
+        <small className='text-gray-500 dark:text-gray-200'>{message?.timeStamp && format(new Date(message.timeStamp),'dd MMMM')}</small>
       </div>
-      <div>
-        <small className='text-xs bg-red-500 text-white rounded-full h-6 w-6 leading-6 text-center inline-block'>
-          {message.length}
-        </small>
-      </div>
+     
     </div>
   </div>
   )

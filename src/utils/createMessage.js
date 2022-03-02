@@ -3,6 +3,6 @@ export default function createMessage(message,sender){
     id: Date.now(),
     message: message,
     sender: sender,
-    timeStamp: Date().toString(),
+    timeStamp: Date(),
   }
 }
