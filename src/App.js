@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import "./App.css";
 import ContactCard from "./components/ContactCard";
 import Message from "./components/Message";
 import createMessage from "./utils/createMessage";
