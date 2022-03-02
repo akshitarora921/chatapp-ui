@@ -3,79 +3,22 @@ import "./App.css";
 import ContactCard from "./components/ContactCard";
 import Message from "./components/Message";
 import createMessage from "./utils/createMessage";
+import useTheme from "./hooks/useTheme";
 const data = [
   {
     userName: "Akshit Arora",
     imageUrl: "/profile-pic.jpeg",
     isOnline: true,
-    message: [
-      {
-        id: 1,
-        message: "how are you",
-        timeStamp: new Date().toString(),
-        sender: "Akshit Arora",
-        receiver: "temp",
-      },
-    ],
-  },
-  {
-    userName: "Akshit Arora",
-    imageUrl: "/profile-pic.jpeg",
-    isOnline: true,
-    message: [
-      {
-        id: 1,
-        message: "how are you",
-        timeStamp: new Date().toString(),
-        sender: "Akshit Arora",
-        receiver: "temp",
-      },
-    ],
-  },
-  {
-    userName: "Akshit Arora",
-    imageUrl: "/profile-pic.jpeg",
-    isOnline: true,
-    message: [
-      {
-        id: 1,
-        message: "how are you",
-        timeStamp: new Date().toString(),
-        sender: "Akshit Arora",
-        receiver: "temp",
-      },
-    ],
-  },
-  {
-    userName: "Akshit Arora",
-    imageUrl: "/profile-pic.jpeg",
-    isOnline: true,
-    message: [
-      {
-        id: 1,
-        message: "how are you",
-        timeStamp: new Date().toString(),
-        sender: "Akshit Arora",
-        receiver: "temp",
-      },
-    ],
-  },
+    isChatActive:true,
+  }
 ];
 
-const messagesTemp = [
-  {
-    id: 1,
-    message: "how are you",
-    timeStamp: new Date().toString(),
-    sender: "bot",
-    receiver: "temp",
-  },
-];
+
 function App() {
   const messagesEndRef = useRef(null);
   const [isBotTyping, setIsBotTyping] = useState(false);
-  const [messages, setMessages] = useState(messagesTemp);
-
+  const [messages, setMessages] = useState([]);
+  const [theme, toggleTheme] = useTheme();
   useEffect(() => {
     if (localStorage.getItem("messages")) {
       setMessages(JSON.parse(localStorage.getItem("messages")));
@@ -89,7 +32,6 @@ function App() {
       fun();
     };
   }, [messages]);
-
   function handleSubmit(e) {
     e.preventDefault();
     const message = e.target.message.value;
@@ -108,10 +50,16 @@ function App() {
 
     e.target.reset();
   }
-  // console.log(messages);
   return (
     <div className='flex flex-col justify-center items-center h-screen bg-gradient-to-r from-blue-600 via-pink-500 to-violet-600'>
-      <div className='h-[95vh] w-[95vw] bg-white/50 dark:bg-black/80 backdrop-blur-md shadow-lg px-8 lg:px-16 py-4 lg:py-8 flex rounded-2xl'>
+      <button className='absolute top-5 right-5' onClick={toggleTheme}>
+        {theme === "dark" ? (
+          <img src='https://img.icons8.com/color/48/000000/sun--v1.png' alt='light mode'/>
+        ) : (
+          <img src="https://img.icons8.com/external-dreamcreateicons-fill-lineal-dreamcreateicons/48/000000/external-moon-weather-dreamcreateicons-fill-lineal-dreamcreateicons-2.png" alt='dark-mode' />
+        )}
+      </button>
+      <div className='h-[85vh] w-[85vw] bg-white/50 dark:bg-black/80 backdrop-blur-md shadow-lg px-8 lg:px-16 py-4 lg:py-8 flex rounded'>
         <div className='sidebar hidden lg:flex w-1/3 flex-2 flex-col pr-6'>
           <div className='search flex-2 py-4 px-2'>
             <input
@@ -122,7 +70,7 @@ function App() {
           </div>
           <div className='flex-1 h-full overflow-auto px-2'>
             {data.map((chat) => (
-              <ContactCard {...chat} />
+              <ContactCard {...chat} message={messages[messages.length-1]} />
             ))}
           </div>
         </div>
@@ -137,7 +85,7 @@ function App() {
               <span className='absolute w-4 h-4 animate-ping duration-1000 bg-green-400 rounded-full right-0 bottom-0'></span>
             </div>
             <h2 className='text-xl dark:text-gray-200'>
-             <b>Mercedes Yemelyan</b>
+              <b>Mercedes Yemelyan</b>
             </h2>
           </div>
           <div className='messages flex-1 overflow-auto relative'>
