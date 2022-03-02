@@ -1,5 +1,5 @@
+import { format } from 'date-fns'
 import React from 'react'
-import { formatDate } from '../utils/formatDate'
 
 function ContactCard({imageUrl, userName, message, unreadMessage, isOnline, isChatActive }) {
   return (
@@ -24,7 +24,7 @@ function ContactCard({imageUrl, userName, message, unreadMessage, isOnline, isCh
     </div>
     <div className='flex-2 text-right'>
       <div>
-        <small className='text-gray-500'>{formatDate(message[0]?.timeStamp)}</small>
+        <small className='text-gray-500'>{format(new Date(message[0]?.timeStamp),'dd MMMM')}</small>
       </div>
       <div>
         <small className='text-xs bg-red-500 text-white rounded-full h-6 w-6 leading-6 text-center inline-block'>
