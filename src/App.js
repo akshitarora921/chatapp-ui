@@ -36,7 +36,7 @@ function App() {
     const message = e.target.message.value;
     const userMessage = createMessage(message, "user");
     const botMessage = createMessage(message, "bot");
-    let tempMessages = messages;
+    let tempMessages = [...messages];
     if (!message) return;
     tempMessages.push(userMessage, botMessage);
     setMessages((prevState) => [...prevState, userMessage]);
