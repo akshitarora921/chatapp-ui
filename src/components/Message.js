@@ -21,7 +21,7 @@ function Message({ message, sender, timeStamp, showDate }) {
   return (
     <>
       {showDate && (
-        <p className='text-xs text-center text-gray-400'>
+        <p className='text-xs text-center text-gray-700 dark:text-gray-400'>
           {format(new Date(timeStamp), "dd-MMM-yyyy")}
         </p>
       )}
