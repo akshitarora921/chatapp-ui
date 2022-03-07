@@ -3,7 +3,7 @@ import ContactCard from "./components/ContactCard";
 import Message from "./components/Message";
 import createMessage from "./utils/createMessage";
 import useTheme from "./hooks/useTheme";
-import { differenceInDays, format } from "date-fns";
+import { differenceInDays } from "date-fns";
 const data = [
   {
     userName: "Akshit Arora",
