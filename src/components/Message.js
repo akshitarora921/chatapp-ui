@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import React from "react";
 
-function Message({ message, sender, timeStamp }) {
+function Message({ message, sender, timeStamp, showDate }) {
   if (sender === "bot") {
     return (
       <div className='message flex'>
@@ -19,18 +19,25 @@ function Message({ message, sender, timeStamp }) {
     );
   }
   return (
-    <div className='message me mb-4 flex text-right'>
-      <div className='flex-1 px-2'>
-        <div className='inline-block bg-blue-600 rounded-full p-2 px-6 text-white'>
-          <span>{message}</span>
-        </div>
-        <div className='pr-4'>
-          <small className='text-gray-500 text-xs'>
-            {format(new Date(timeStamp), "hh:mm aaa")}
-          </small>
+    <>
+      {showDate && (
+        <p className='text-xs text-center text-gray-400'>
+          {format(new Date(timeStamp), "dd-MMM-yyyy")}
+        </p>
+      )}
+      <div className='message me mb-4 flex text-right'>
+        <div className='flex-1 px-2'>
+          <div className='inline-block bg-blue-600 rounded-full p-2 px-6 text-white'>
+            <span>{message}</span>
+          </div>
+          <div className='pr-4'>
+            <small className='text-gray-500 text-xs'>
+              {format(new Date(timeStamp), "hh:mm aaa")}
+            </small>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

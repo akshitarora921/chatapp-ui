@@ -3,21 +3,22 @@ import ContactCard from "./components/ContactCard";
 import Message from "./components/Message";
 import createMessage from "./utils/createMessage";
 import useTheme from "./hooks/useTheme";
+import { differenceInDays, format } from "date-fns";
 const data = [
   {
     userName: "Akshit Arora",
     imageUrl: "/profile-pic.jpeg",
     isOnline: true,
-    isChatActive:true,
-  }
+    isChatActive: true,
+  },
 ];
-
 
 function App() {
   const messagesEndRef = useRef(null);
   const [isBotTyping, setIsBotTyping] = useState(false);
   const [messages, setMessages] = useState([]);
   const [theme, toggleTheme] = useTheme();
+  let date;
   useEffect(() => {
     if (localStorage.getItem("messages")) {
       setMessages(JSON.parse(localStorage.getItem("messages")));
@@ -51,11 +52,20 @@ function App() {
   }
   return (
     <div className='flex flex-col justify-center items-center h-screen bg-gradient-to-r from-blue-600 via-pink-500 to-violet-600'>
-      <button className='hidden md:block absolute top-5 right-5' onClick={toggleTheme}>
+      <button
+        className='hidden md:block absolute top-5 right-5'
+        onClick={toggleTheme}
+      >
         {theme === "dark" ? (
-          <img src='https://img.icons8.com/color/48/000000/sun--v1.png' alt='light mode'/>
+          <img
+            src='https://img.icons8.com/color/48/000000/sun--v1.png'
+            alt='light mode'
+          />
         ) : (
-          <img src="https://img.icons8.com/external-dreamcreateicons-fill-lineal-dreamcreateicons/48/000000/external-moon-weather-dreamcreateicons-fill-lineal-dreamcreateicons-2.png" alt='dark-mode' />
+          <img
+            src='https://img.icons8.com/external-dreamcreateicons-fill-lineal-dreamcreateicons/48/000000/external-moon-weather-dreamcreateicons-fill-lineal-dreamcreateicons-2.png'
+            alt='dark-mode'
+          />
         )}
       </button>
       <div className='h-[98vh] w-[98vw] md:h-[85vh] md:w-[85vw] bg-white/50 dark:bg-black/80 backdrop-blur-md shadow-lg px-8 lg:px-16 py-4 lg:py-8 flex rounded'>
@@ -69,7 +79,7 @@ function App() {
           </div>
           <div className='flex-1 h-full overflow-auto px-2'>
             {data.map((chat) => (
-              <ContactCard {...chat} message={messages[messages.length-1]} />
+              <ContactCard {...chat} message={messages[messages.length - 1]} />
             ))}
           </div>
         </div>
@@ -88,9 +98,24 @@ function App() {
             </h2>
           </div>
           <div className='messages flex-1 overflow-auto relative'>
-            {messages.map((message) => (
-              <Message {...message} />
-            ))}
+            {messages.map((message) => {
+              let showDate = false;
+              if (!date) {
+                showDate = true;
+                date = message.timeStamp;
+              } else {
+                if (
+                  differenceInDays(
+                    new Date(message.timeStamp),
+                    new Date(date)
+                  ) > 1
+                ) {
+                  date = message.timeStamp;
+                  showDate = true;
+                }
+              }
+              return <Message {...message} showDate={showDate} />;
+            })}
 
             {isBotTyping && (
               <div className='message mb-4 flex absolute'>
